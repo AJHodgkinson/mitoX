@@ -2,9 +2,8 @@ The methods described here are to accompany the study "Nuclear-genetic modulatio
 
 # 1. Alignment of RNA sequencing data:
 
-For GTEx data: download the BAM file, convert this to fastq, align the raw data and generate gene count information, filter reads, generate modification and cleavage rate estimates.
+For GTEx data: for each sample the BAM file was downloaded, converted to fastq, aligned to a reference genome with STAR (including generating gene count information), reads were filtered (as per methods), and modification and cleavage rate estimates were generated.  See alignment directory for scripts used for each step.
 
 # 2. eQTL Generation:
 
-- Infosheets were generated for each tissue type, containing information on DNA sample name, RNA sample name and any covariates being used for eQTL mapping (various models used).
-- mitogwas was used for each tissue type to perform eQTL mapping with plink
+An infosheet was generated for each tissue type, containing information on DNA sample name, RNA sample name and any covariates being used for eQTL mapping (various models used). mitogwas was then used for each tissue type to perform eQTL mapping with plink.
