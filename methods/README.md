@@ -6,4 +6,4 @@ For GTEx data: for each sample the BAM file was downloaded, converted to fastq, 
 
 # 2. eQTL Generation:
 
-An infosheet was generated for each tissue type, containing information on DNA sample name, RNA sample name and any covariates being used for eQTL mapping (various models used). mitogwas was then used for each tissue type to perform eQTL mapping with plink.
+An infosheet was generated for each tissue type, containing information on DNA sample name, RNA sample name and any covariates being used for eQTL mapping (various models used). mitogwas (https://github.com/AJHodgkinson/mitogwas) was then used for each tissue type to perform eQTL mapping with plink.
