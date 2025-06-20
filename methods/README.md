@@ -2,7 +2,7 @@ The methods described here are to accompany the study "Nuclear-genetic modulatio
 
 # 1. Alignment of RNA sequencing data:
 
-
+For GTEx data: download the BAM file, convert this to fastq, align the raw data and generate gene count information, filter reads, generate modification and cleavage rate estimates.
 
 # 2. eQTL Generation:
 
