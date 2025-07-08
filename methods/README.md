@@ -12,6 +12,6 @@ An infosheet was generated for each tissue type, containing information on DNA s
 
 Genetic, expression and covariate data was used for each tissue type and gene that was generated in the previous step.  Mitoimpute () was then used to format files correctly for FUSION, to run FUSION and then to test models against real data.
 
-# 4. Imputation of mtDNA-encoded transcript abundance int UKBB participants and tests against disease and quantitative traits
+# 4. Imputation of mtDNA-encoded transcript abundance into UKBB participants and tests against disease and quantitative traits
 
 
