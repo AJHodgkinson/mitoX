@@ -8,7 +8,7 @@ For each sample the BAM file was downloaded, converted to fastq, aligned to a re
 
 An infosheet was generated for each tissue type, containing information on DNA sample name, RNA sample name and any covariates being used for eQTL mapping (various models used). Mitogwas (https://github.com/AJHodgkinson/mitogwas) was then used for each tissue type to perform eQTL mapping with plink.
 
-# 3. Generate Genetic Scores for mtDNA-encoded transcript abundance
+# 3. Generation of Genetic Scores for mtDNA-encoded transcript abundance
 
 Genetic, expression and covariate data was used for each tissue type and gene that was generated in the previous step.  Mitoimpute () was then used to format files correctly for FUSION, to run FUSION and then to test models against real data.
 
