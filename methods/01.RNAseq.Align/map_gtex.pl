@@ -1,29 +1,30 @@
 use strict;
 
+#Generate a file-manifest for samples in the study, and then extract each file name and object_id for download with gen3-client
 open (FILE, "file-manifest.json") || die "Unable to open file to read: $!\n";
 
 my $rna; my $dg; my $md5;
 
 while (<FILE>) {
   my @array=split;
-  if ($_=~/md5sum/) {
+  if ($_=~/md5sum/) { #Get md5sum to check download against
     $md5=$array[1];
     $md5=~s/\"//g;
     $md5=~s/\,//g;
   }
-  if ($_=~/file_name/) {
+  if ($_=~/file_name/) { #Collect filename
     $rna=$array[1];
     $rna=~s/\"//g;
     $rna=~s/\,//g;
   }
-  if ($_=~/object_id/) {
+  if ($_=~/object_id/) { #Collect object ID
     $dg=$array[1];
     $dg=~s/\"//g;
     $dg=~s/\,//g;
     
     my @out=split(/\./,$rna);
     my $stub=$out[0];
-    my $outfile=$stub.".sh";
+    my $outfile=$stub.".sh"; #Create out shell file for each sample
     my $check=$stub.".md5";
     my $complete=$stub.".MT.SEfile.txt";
     
@@ -38,20 +39,23 @@ while (<FILE>) {
       print OUT "#!/bin/bash -l\n#SBATCH --output=/scratch/grp/hodgkinsonlab/shared/GTEx_Data/RNAseq/$stub.report\n";
       print OUT "source ~/.bashrc\n";
       print OUT "cd /scratch/grp/hodgkinsonlab/shared/GTEx_Data/RNAseq\n";
-      
+
+      #Instructions to download each file
       print OUT "yes | gen3-client download-single --profile=ahodgkinson --guid=$dg --download-path=/scratch/grp/hodgkinsonlab/shared/GTEx_Data/RNAseq --protocol=s3\n";
       print OUT "md5sum -c $check\n";
       print OUT "rm $check\n";
       
       print OUT "module load samtools/1.14-gcc-10.3.0-python-2.7.18\n";
-      
+
+      #Index downloaded BAM file, convert to fastq
       print OUT "samtools index $rna\n";
       print OUT "samtools sort -@ 10 -n -o $stub.sorted.bam $rna\n";
       print OUT "samtools fastq $stub.sorted.bam -1 ${stub}_1.fq.gz -2 ${stub}_2.fq.gz\n";
       print OUT "rm $stub.sorted.bam\n";
       print OUT "rm $rna\n";
       print OUT "rm ${rna}.bai\n";
-      
+
+      #Align with STAR, generate gene count data, filter properly paired, uniquely mapped reads, and create MT only file
       print OUT "module load star/2.7.6a-gcc-9.4.0\n";
       print OUT "STAR --runThreadN 10 --genomeDir /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/STARGenome --readFilesIn ${stub}_1.fq.gz ${stub}_2.fq.gz --outFileNamePrefix ${stub}. --quantMode GeneCounts --readFilesCommand zcat --twopassMode Basic --outSAMtype BAM SortedByCoordinate --outSAMstrandField intronMotif --outFilterType BySJout --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 --outFilterMismatchNoverReadLmax 0.05 --alignIntronMin 20 --alignIntronMax 1000000  --alignMatesGapMax 1000000 --outSAMattributes NH nM NM MD HI\n";
       print OUT "samtools index ${stub}.Aligned.sortedByCoord.out.bam\n";
@@ -61,6 +65,8 @@ while (<FILE>) {
       print OUT "samtools index ${stub}.Aligned.sortedByCoord.out.PP.UM.bam\n";
       print OUT "samtools view -bh ${stub}.Aligned.sortedByCoord.out.PP.UM.bam chrM >> ${stub}.Aligned.sortedByCoord.out.PP.UM.MT.bam\n";
       print OUT "samtools index ${stub}.Aligned.sortedByCoord.out.PP.UM.MT.bam\n";
+
+      #Create modification file, cleavage file and QC data
       print OUT "perl /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/ReadSEExtractor_mito.pl --Bam ${stub}.Aligned.sortedByCoord.out.PP.UM.MT.bam --RefFasta /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/GRCh38.primary_assembly.genome.fa --Out ${stub}\n";
       print OUT "perl /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/pileupAlleleExtractor_mito.pl --Bam ${stub}.Aligned.sortedByCoord.out.PP.UM.MT.bam --MinQ 23 --RefFasta /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/GRCh38.primary_assembly.genome.fa --Out ${stub}\n";
       print OUT "/scratch/grp/hodgkinsonlab/Programs/rnaseqc.v2.4.2.linux /scratch/grp/hodgkinsonlab/shared/GTEx_Data/References/gencode.v42.primary_assembly.genes.gtf ${stub}.Aligned.sortedByCoord.out.PP.bam RNAseQC\n";
