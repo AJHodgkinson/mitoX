@@ -1,6 +1,6 @@
 # mitoX
 
-MitoX includes resources used to better understand the genetic archetectur of mtDNA-encoded transcript abundance and its releavnce to common disease risk, as pubished in... 
+MitoX includes resources used to better understand the genetic archetectur of mtDNA-encoded transcript abundance and its relevance to common disease risk, as pubished in... 
 
 This repository contains the following:
 
