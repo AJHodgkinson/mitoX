@@ -16,6 +16,6 @@ Where:
 
 This approach averages scores across genetic loci per sample, to sum scores instead use:
 
-```plink2 --bfile <YOUR_GENETIC_DATA> --score <SCORE_FILE> sum --out <OUT_FILE_NAME>```
+```plink2 --bfile <YOUR_GENETIC_DATA> --score <SCORE_FILE> cols=+scoresums --out <OUT_FILE_NAME>```
 
 Data is available at: https://figshare.com/projects/Nuclear_genetic_modulation_of_tissue-specific_mitochondrial_RNA_processing_contributes_to_common_disease_risk/256064
