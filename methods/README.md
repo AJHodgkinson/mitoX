@@ -14,6 +14,8 @@ Genetic, expression and covariate data was used for each tissue type and gene th
 
 # 4. Imputation of mtDNA-encoded transcript abundance into UKBB participants
 
+Genetic score models were then used to impute mtDNA encoded transcript abundances into UKBB participants for 15 genes and 49 tissue types.
+
 # 5. Test imputed scores against disease and quantitative traits
 
 
