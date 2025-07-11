@@ -18,4 +18,4 @@ Genetic score models were then used to impute mtDNA encoded transcript abundance
 
 # 5. Test imputed scores against disease and quantitative traits
 
-
+Compare imputed mtDNA-encoded abundance values against quantitative traits and disease status for unrelated UKBB individuals of European ancestry.
