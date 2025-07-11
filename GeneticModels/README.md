@@ -9,7 +9,9 @@ To generate predicted transcript abundance for your samples (where you have gene
 Where:
 
 ```<YOUR_GENETIC_DATA>``` is the genetic data for your samples in PLINK binary format
+
 ```<SCORE_FILE>``` is the score file model you want to use (gene, tissue, model)
+
 ```<OUT_FILE_NAME>``` is the name that you want to use for the output file
 
 This approach averages scores across genetic loci per sample, to sum scores instead use:
