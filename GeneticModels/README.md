@@ -38,7 +38,11 @@ This approach averages scores across genetic loci per sample, to sum scores inst
 
 ```plink2 --bfile <YOUR_GENETIC_DATA> --score <SCORE_FILE> cols=+scoresums --out <OUT_FILE_NAME>```
 
+# Model Example
 
+Using the files available in this repository, running the following command should give idenitical output as found in "test.out.sscores":
+
+```plink2 --bfile 1000G_chr22_50inds --score WholeBlood.ENSG00000228253.1.blup.1e1.weights.hg19.txt cols=+scoresums --out test.out```
 
 
 
