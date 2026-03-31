@@ -18,7 +18,7 @@ For each gene-tissue pair, 9 models are provided:
 
 The best-performing model for each gene–tissue combination (as reported in the manuscript) is indicated in Supplementary Tables 8 and 10.
 
-Note: It is important to ensure that alleles in your dataset are aligned to the effect allele in the score file. Mismatches or strand flips may lead to incorrect predictions. Scores are aligned to the effect allele as defined in the GTEx reference dataset (vX, genome build GRChXX).
+Note: It is important to ensure that alleles in your dataset are aligned to the effect allele in the score file. Mismatches or strand flips may lead to incorrect predictions.
 
 # Model Usage
 
